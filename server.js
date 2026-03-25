@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 // 🔗 Conexión a MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI || "mongodb+srv://Vendedor:1234@cluster0.sqdc9mb.mongodb.net/tienda")
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://Vendedor:Cosmeticos2024@cluster0.sqdc9mb.mongodb.net/tienda")
 .then(() => console.log("Conectado a MongoDB Atlas"))
 .catch(err => console.log(err));
 
