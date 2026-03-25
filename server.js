@@ -7,10 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 // 🔗 Conexión a MongoDB Atlas
-mongoose.connect("mongodb+srv://<db_username>:<db_password>@cluster0.sqdc9mb.mongodb.net/?appName=Cluster0", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://Vendedor:1234@cluster0.sqdc9mb.mongodb.net/tienda")
 .then(() => console.log("Conectado a MongoDB Atlas"))
 .catch(err => console.log(err));
 
@@ -35,6 +32,7 @@ app.get("/productos", async (req, res) => {
 });
 
 // 🚀 Servidor
-app.listen(3000, () => {
-    console.log("Servidor corriendo en puerto 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
 });
