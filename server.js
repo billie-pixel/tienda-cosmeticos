@@ -7,9 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 // 🔗 Conexión a MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI || "mongodb+srv://Vendedor:Cosmeticos2024@cluster0.sqdc9mb.mongodb.net/tienda")
-.then(() => console.log("Conectado a MongoDB Atlas"))
-.catch(err => console.log(err));
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://admin:admin123@cluster0.sqdc9mb.mongodb.net/tienda")
+.then(() => console.log("¡Conexión exitosa!"))
+.catch(err => console.error("Error de conexión:", err));
 
 // 📦 Modelo de producto
 const Producto = mongoose.model("Producto", {
