@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tienda de Cosméticos</title>
+
+<style>
+body {
+    font-family: Arial;
+    background-color: #fff9db;
+    text-align: center;
+}
+
+h1 {
+    color: #f4c430;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.producto {
+    background: #fff3b0;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    width: 200px;
+}
+
+button {
+    background: #f4c430;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🌼 Tienda de Cosméticos</h1>
+
+<h2>Agregar producto</h2>
+
+<input type="text" id="nombre" placeholder="Nombre">
+<input type="number" id="precio" placeholder="Precio">
+<input type="text" id="imagen" placeholder="URL Imagen">
+
+<button onclick="agregarProducto()">Guardar</button>
+
+<h2>Productos</h2>
+<div class="container" id="productos"></div>
+
+<script>
+const API = "http://localhost:3000/productos";
+
+// 📥 Obtener productos
+async function cargarProductos() {
+    const res = await fetch(API);
+    const data = await res.json();
+
+    const contenedor = document.getElementById("productos");
+    contenedor.innerHTML = "";
+
+    data.forEach(p => {
+        contenedor.innerHTML += `
+            <div class="producto">
+                <img src="${p.imagen}" width="100">
+                <h3>${p.nombre}</h3>
+                <p>$${p.precio}</p>
+            </div>
+        `;
+    });
+}
+
+// 📤 Agregar producto
+async function agregarProducto() {
+    const nombre = document.getElementById("nombre").value;
+    const precio = document.getElementById("precio").value;
+    const imagen = document.getElementById("imagen").value;
+
+    await fetch(API, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ nombre, precio, imagen })
+    });
+
+    cargarProductos();
+}
+
+// cargar al iniciar
+cargarProductos();
+</script>
+
+</body>
+</html>
